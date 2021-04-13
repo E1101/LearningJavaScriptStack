@@ -1,0 +1,12 @@
+// We'll set up a separate configuration for the server and client so that our
+// client code can be compiled into a public JS folder while the server code can
+// be run using ts-node.
+{
+  "compilerOptions": {
+    "target": "es6",
+    "module": "commonjs",
+    "typeRoots": ["./node_modules/@types"],
+    "esModuleInterop": true,
+    "forceConsistentCasingInFileNames": true,
+  }
+}
