@@ -1,0 +1,29 @@
+<!doctype html>
+
+<title>Pomodoro Timer</title>
+
+<script src="https://unpkg.com/react@16.4.0/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16.4.0/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/create-react-class@15.6.3/create-react-class.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<div id="app"></div>
+
+<script type="text/babel">
+var Idle = function(props) {
+  return (
+    <React.Fragment>
+      <button onClick={props.onStart}>Start timer</button>
+      <h2>No Timer Running.</h2>
+    </React.Fragment>
+  );
+};
+
+var renderTarget = document.getElementById("app");
+
+function handleStart() {
+  alert("Start!");
+}
+
+ReactDOM.render(<Idle onStart={handleStart} />, renderTarget);
+</script>

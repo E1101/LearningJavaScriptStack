@@ -1,0 +1,69 @@
+<!doctype html>
+
+<title>03 Nested Elements - React From Zero</title>
+
+<script src="https://unpkg.com/react@16.4.0/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16.4.0/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<div id="app"></div>
+
+<script type="text/babel">
+// Elements can be nested, this results in nested React.createElement
+// calls. Writing this without JSX would be pretty tedious
+var reactElement = (
+  <div className="abc">
+    <h1>Hello</h1>
+    <h2>world</h2>
+  </div>
+);
+
+// they can also, like mentioned in lesson 2, contain JavaScript in {}
+var myClass = "abc";
+
+function myText() {
+  return "world";
+}
+
+// JavaScript insertion has the same syntax in attributes as in normal
+// text or elements
+// ---
+// Statements, like if, switch or while, are not allowed as the first
+// keyword after the opening brace. If you need conditional logic, you can
+// use the ternary operator, as in: { booleanVal ? "it was true" : "it was false" }
+reactElement = (
+  <div className={myClass}>
+    <h1>Hello {10 * 10}</h1>
+    <h2>{myText()}</h2>
+  </div>
+);
+
+// this JavaScript can contain elements too
+var nestedElement = <h2>world</h2>;
+
+reactElement = (
+  <div>
+    <h1>Hello</h1>
+    {nestedElement}
+  </div>
+);
+
+// it is also possible to "spread" an object as properties
+var properties = {
+  className: "abc",
+  onClick: function() {
+    alert("click");
+  }
+};
+
+reactElement = (
+  <div {...properties}>
+    <h1>Hello</h1>
+    <h2>world</h2>
+  </div>
+);
+
+var renderTarget = document.getElementById("app");
+
+ReactDOM.render(reactElement, renderTarget);
+</script>

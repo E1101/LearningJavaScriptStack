@@ -1,0 +1,25 @@
+{
+  "name": "10-typegraphql",
+  "version": "1.0.0",
+  "description": "code first graphql app using type-graphql",
+  "main": "index.js",
+  "author": "Gaetano Checinski",
+  "license": "MIT",
+  "dependencies": {
+    "apollo": "^2.28.3",
+    "apollo-server": "^2.15.1",
+    "apollo-server-express": "^2.15.1",
+    "class-validator": "^0.12.2",
+    "cookie-parser": "^1.4.5",
+    "express": "^4.17.1",
+    "graphql": "^15.3.0",
+    "reflect-metadata": "^0.1.13",
+    "sqlite3": "^5.0.0",
+    "type-graphql": "^1.0.0-rc.3",
+    "typeorm": "^0.2.25"
+  },
+  "devDependencies": {
+    "@types/cookie-parser": "^1.4.2",
+    "typescript": "^3.9.6"
+  }
+}

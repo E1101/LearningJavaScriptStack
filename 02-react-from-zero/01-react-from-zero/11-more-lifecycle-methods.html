@@ -1,0 +1,149 @@
+<!doctype html>
+
+<title>More Lifecycle Methods</title>
+
+<script src="https://unpkg.com/react@16.4.0/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16.4.0/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/create-react-class@15.6.3/create-react-class.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<div id="app"></div>
+
+<script type="text/babel">
+var Profile = createReactClass({
+    getInitialState: function() {
+        return { userName: "..." };
+    },
+
+    componentDidMount: function() {
+        this.fetchUser(this.props.userId);
+    },
+
+    // This method lets us add logic after every update to the DOM.
+    // React calls this method in the New Props, setState and forceUpdate cycle.
+    componentDidUpdate: function(prevProps, prevState, snapshot) {
+        if (this.props.userId !== prevProps.userId) {
+            this.fetchUser(this.props.userId);
+        }
+    },
+
+    fetchUser: function(userId) {
+        fetch("/users/" + userId).then(function(user) {
+            this.setState({ userName: user.name });
+        });
+    },
+
+    render: function() {
+        return <h2>{this.state.userName}</h2>;
+    }
+});
+
+
+var Graph = createReactClass({
+    componentDidMount: function() {
+        this.renderGraph(this.props.graphData);
+    },
+
+    // This method allows us to tell React when the component should update.
+    // - If we return false from this method, React won't bother to update the DOM
+    // - If we return true React updates the DOM
+    // ---
+    // React calls the method in the New Props and setState cycle, so it can only
+    // stop these two cycles. It can't stop the first render or the unmounting/removal
+    // of a component.
+    // ---
+    // Our shouldComponentUpdate() method always returns false, so the <div> element
+    // with the new content rendered by the third party library doesn't get overridden
+    // by a new empty <div> element, but since we call the renderGraph() method before
+    // that, the third party library can update independently from React.
+    shouldComponentUpdate: function(nextProps, nextState) {
+        this.renderGraph(nextProps.graphData);
+        return false;
+    },
+
+    renderGraph: function(data) {
+        var domTarget = document.getElementById(this.props.id);
+        // graphLibrary is an imaginary non-React 3rd-party library
+        graphLibrary.render(domTarget, data);
+    },
+
+    render: function() {
+        return <div id={this.props.id} />;
+    }
+});
+
+
+var Timer = createReactClass({
+    getInitialState: function() {
+        return { seconds: 0 };
+    },
+    render: function() {
+        return <span>Seconds: {this.state.seconds}</span>;
+    }
+});
+
+// It has to be a static method, which means this is not available here.
+// ---
+// React calls this method in the Mounting, the New Props,
+// the setState and the forceUpdate cycle.
+Timer.getDerivedStateFromProps = function(nextProps, prevState) {
+    var nextState = {
+        seconds: nextProps.minutes * 60
+    };
+    return nextState;
+};
+
+
+var ScrollList = createReactClass({
+    // This method is called right before React updates
+    // the DOM with new state and props.
+    // The return value will be passed as third argument
+    // to the componentDidUpdate() lifecycle method.
+    // ---
+    // React calls this method in the New Props, setState
+    // and forceUpdate cycle.
+    getSnapshotBeforeUpdate: function(prevProps, prevState) {
+        if (this.props.listItems.length > prevProps.listItems.length) {
+            var list = document.getElementById(this.props.id);
+            return list.scrollHeight - list.scrollTop;
+        }
+
+        return null;
+    },
+
+    componentDidUpdate: function(prevProps, prevState, snapshot) {
+        if (snapshot !== null) {
+            var list = document.getElementById(this.props.id);
+            list.scrollTop = list.scrollHeight - snapshot;
+        }
+    },
+
+    render: function() {
+        return <div id={this.props.id}>{/* listItems */}</div>;
+    }
+});
+
+
+var Example = createReactClass({
+    componentDidMount: function() {
+        var self = this;
+        library.onNewData(function() {
+            // We can use the forceUpdate() method if we need to re-render
+            // based on events of a third party library. Normally we store
+            // the data needed for rendering inside this.state, but sometimes
+            // we don't want to maintain multiple versions of the data.
+            // This requires us to tell React when we need a new render.
+            self.forceUpdate();
+        });
+    },
+    render: function() {
+        var dataList = library.getDataList();
+
+        return (
+            <ul>
+                {dataList.map(item => <li>{item.title}</li>)}
+            </ul>
+        );
+    }
+});
+</script>

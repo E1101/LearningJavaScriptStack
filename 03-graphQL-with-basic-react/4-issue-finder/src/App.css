@@ -1,0 +1,162 @@
+html,
+body {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+}
+
+#root {
+  width: 100%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+}
+
+.header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.SearchForm {
+  display: flex;
+  align-items: center;
+  justify-content: stretch;
+}
+
+.SearchForm label {
+  border-radius: 2px;
+  padding: 0.25em;
+}
+
+.SearchForm input {
+  margin: 5px;
+  padding: 0.25em;
+}
+
+.SearchForm button {
+  font-size: 1.1em;
+  border-radius: 2px;
+  margin: 5px;
+  padding: 0.25em;
+}
+
+.IssueCard {
+  padding: 1em;
+  border-bottom: 1px solid #ccc;
+}
+
+.Results {
+  display: flex;
+  flex-direction: column;
+  align-items: stretch;
+  margin-top: 1em;
+  padding: 1em;
+}
+
+.Results > .Info {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  border-bottom: solid 1px #eee;
+  margin-bottom: 0.3em;
+}
+
+.IssueCardHeader {
+  display: flex;
+  align-items: center;
+}
+
+.IssueCardHeader img {
+  height: 5em;
+  margin-right: 2em;
+}
+
+.IssueCardHeader > div > * {
+  margin-bottom: 7px;
+}
+
+.IssueCardHeader h2,
+.IssueCardHeader h3 {
+  font-size: 1.2rem;
+  margin: 0;
+}
+
+.Response {
+  display: flex;
+  flex-direction: row;
+  margin-left: 1em;
+  margin-bottom: 1em;
+  padding-left: 1em;
+  max-width: 600px;
+}
+
+.Response > .Info {
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  align-items: center;
+  white-space: nowrap;
+}
+
+.Response img {
+  height: 3em;
+  border-radius: 5px;
+}
+
+.Response .Message {
+  display: flex;
+  flex-direction: column;
+  padding: 0em 0.5em 0.2em;
+  margin-left: 1em;
+  align-items: flex-end;
+  background: #eef;
+  border-radius: 1em;
+  border-top-left-radius: 0.2em;
+  border-bottom-right-radius: 0.2em;
+  position: relative;
+}
+
+.Message:before {
+  content: "";
+  width: 0px;
+  height: 0px;
+  position: absolute;
+  border-right: 10px solid #eef;
+  border-left: 10px solid transparent;
+  border-top: 10px solid #fff;
+  border-bottom: 10px solid transparent;
+  left: -20px;
+  top: 1em;
+}
+
+.ResponsesContainer .Controls {
+  display: flex;
+  justify-content: center;
+}
+
+blockquote {
+  background: #f9f9f9;
+  border-left: 10px solid #ccc;
+  margin: 1.5em 10px;
+  padding: 0.5em 10px;
+  quotes: "\201C""\201D""\2018""\2019";
+}
+blockquote:before {
+  color: #ccc;
+  content: open-quote;
+  font-size: 4em;
+  line-height: 0.1em;
+  margin-right: 0.25em;
+  vertical-align: -0.4em;
+}
+blockquote p {
+  display: inline;
+}
+
+pre {
+  margin-left: 1em;
+  background: #eee;
+}

@@ -1,0 +1,45 @@
+{
+  "name": "github-issue-finder",
+  "version": "0.1.0",
+  "private": true,
+  "dependencies": {
+    "@apollo/client": "^3.2.2",
+    "graphql": "^15.1.0",
+    "javascript-time-ago": "^2.0.7",
+    "lodash.update": "^4.10.2",
+    "lodash.updatewith": "^4.10.2",
+    "moment": "^2.24.0",
+    "react": "^16.12.6",
+    "react-dom": "^16.8.6"
+  },
+  "scripts": {
+    "start": "react-scripts start",
+    "generate": "graphql-codegen --config codegen.yml",
+    "build": "react-scripts build",
+    "test": "react-scripts test",
+    "eject": "react-scripts eject"
+  },
+  "eslintConfig": {
+    "extends": "react-app"
+  },
+  "browserslist": [
+    ">0.2%",
+    "not dead",
+    "not ie <= 11",
+    "not op_mini all"
+  ],
+  "devDependencies": {
+    "@graphql-codegen/cli": "^1.17.10",
+    "@graphql-codegen/typescript": "^1.17.8",
+    "@graphql-codegen/typescript-operations": "^1.17.8",
+    "@graphql-codegen/typescript-react-apollo": "^2.0.7",
+    "@types/graphql": "^14.2.0",
+    "@types/jest": "24.0.11",
+    "@types/lodash.update": "^4.10.6",
+    "@types/node": "11.13.6",
+    "@types/react": "16.9.29",
+    "@types/react-dom": "*",
+    "react-scripts": "3.4.1",
+    "typescript": "3.8.3"
+  }
+}

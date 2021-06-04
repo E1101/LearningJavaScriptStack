@@ -1,0 +1,148 @@
+<!doctype html>
+
+<title>10 Example App - React From Zero</title>
+
+<script src="https://unpkg.com/react@16.4.0/umd/react.development.js"></script>
+<script src="https://unpkg.com/react-dom@16.4.0/umd/react-dom.development.js"></script>
+<script src="https://unpkg.com/create-react-class@15.6.3/create-react-class.js"></script>
+<script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+
+<div id="app"></div>
+
+<script type="text/babel">
+var Idle = function(props) {
+    return (
+    <React.Fragment>
+      <button onClick={props.onStart}>Start timer</button>
+      <h2>No Timer Running.</h2>
+    </React.Fragment>
+  );
+};
+
+var Timer = createReactClass({
+  getInitialState: function() {
+    return { seconds: this.props.minutes * 60 };
+  },
+
+  countDown: function() {
+    var onFinish = this.props.onFinish;
+    this.setState(function(prevState) {
+      var secondsLeft = prevState.seconds - 1;
+
+      if (secondsLeft < 1) return onFinish();
+
+      return { seconds: secondsLeft };
+    });
+  },
+
+  interval: null,
+  componentDidMount: function() {
+    this.interval = setInterval(this.countDown, 1000);
+  },
+  componentWillUnmount: function() {
+    clearInterval(this.interval);
+  },
+
+  render: function() {
+    var seconds = this.state.seconds;
+    var minutes = Math.floor(seconds / 60);
+    seconds = seconds % 60;
+
+    return (
+      <React.Fragment>
+        <button onClick={this.props.onStop}>Stop timer</button>
+        <h2 style={{ color: this.props.color }}>
+          {this.props.title} for {minutes} minutes and {seconds}{" "}
+          seconds.
+        </h2>
+      </React.Fragment>
+    );
+  }
+});
+
+var PomodoroApp = createReactClass({
+  IDLE: 0,
+  WORK: 1,
+  PAUSE: 2,
+
+  getInitialState: function() {
+    return {
+      count: 0,
+      step: this.IDLE
+    };
+  },
+
+  handleWork: function() {
+    this.setState({ step: this.WORK });
+  },
+
+  handlePause: function() {
+    this.setState(function(prevState) {
+      return {
+        count: prevState.count + 1,
+        step: this.PAUSE
+      };
+    });
+  },
+
+  handleIdle: function() {
+    this.setState({ step: this.IDLE });
+  },
+
+  getTimerElement: function() {
+    var step = this.state.step;
+
+    if (step == this.PAUSE)
+      return (
+        <Timer
+          // We need to supply different key props to tell React these are
+          // different components that just happen to be in the same place
+          // at different times, otherwise React wouldn't reset the <Timer>
+          // components state when timerState changed.
+          key="pause"
+          title="Pause"
+          color="green"
+          minutes={5}
+          onFinish={this.handleWork}
+          onStop={this.handleIdle}
+        />
+      );
+
+    if (step == this.WORK)
+      return (
+        <Timer
+          key="work"
+          title="Work"
+          color="orange"
+          minutes={25}
+          onFinish={this.handlePause}
+          onStop={this.handleIdle}
+        />
+      );
+
+    return <Idle onStart={this.handleWork} />;
+  },
+
+  style: {
+    display: "flex",
+    flexDirection: "column",
+    alignItems: "center"
+  },
+
+  render: function() {
+    var count = this.state.count;
+
+    return (
+      <div style={this.style}>
+        <h1>Pomodoro Timer</h1>
+        {this.getTimerElement()}
+        {!!count && <h2>You worked {count * 25} minutes today!</h2>}
+      </div>
+    );
+  }
+});
+
+var renderTarget = document.getElementById("app");
+
+ReactDOM.render(<PomodoroApp />, renderTarget);
+</script>

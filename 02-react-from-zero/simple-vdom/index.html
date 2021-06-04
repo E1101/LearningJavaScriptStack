@@ -1,0 +1,80 @@
+<!doctype html>
+
+<title>Pre Lesson - React From Zero</title>
+
+<div id="app">
+  <!--The render target of our vdom-->
+</div>
+
+<script>
+function render(target, vDom) {
+  var domRootElement = document.getElementById(target);
+
+  domRootElement.innerHTML = "";
+  domRootElement.appendChild(createDomElement(vDom));
+}
+
+function createDomElement(vDomElement) {
+  if (typeof vDomElement == "string")
+    return document.createTextNode(vDomElement);
+
+  var domElement = document.createElement(vDomElement.type);
+
+  for (var propName in vDomElement.props) {
+    if (propName.startsWith("on")) {
+      domElement.addEventListener(
+        propName.substring(2).toLowerCase(),
+        vDomElement.props[propName]
+      );
+    } else {
+      domElement.setAttribute(propName, vDomElement.props[propName]);
+    }
+  }
+
+  for (var i in vDomElement.children)
+    domElement.appendChild(createDomElement(vDomElement.children[i]));
+
+  return domElement;
+}
+
+// A simple VDOM element
+var simpleVDom = {
+  type: "p",
+  props: {},
+  children: ["Hello, World!"]
+};
+
+// A more sophisticated VDOM tree
+var vDom = {
+  type: "div",
+  props: { class: "container" },
+  children: [
+    {
+      type: "p",
+      props: { style: "background: yellow" },
+      children: ["Hello, World!"]
+    },
+    {
+      type: "p",
+      props: { style: "background: red" },
+      children: ["Hello, World!"]
+    },
+    {
+      type: "button",
+      props: {
+        onClick: function (event) {
+          vDom.children.push({
+            type: "p",
+            props: { style: "background: yellow" },
+            children: ["Added by a click!"]
+          });
+          render("app", vDom);
+        }
+      },
+      children: ["Click Me"]
+    }
+  ]
+};
+
+render("app", vDom);
+</script>
