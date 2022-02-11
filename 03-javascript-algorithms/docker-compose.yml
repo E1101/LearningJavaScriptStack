@@ -1,0 +1,20 @@
+version: "2"
+
+services:
+  node:
+    image: "node:14-alpine3.14"
+    user: "node"
+    working_dir: /home/node/app
+#    ports:
+#      - "3000:3000"
+    environment:
+      - NODE_ENV=development
+    volumes:
+      - ./:/home/node/app
+    command: "/bin/sh -c \"while true; do sleep 3; done\""
+
+## docker-compose up -d
+## docker-compose exec node /bin/sh
+## or > docker-compose run node node task.js
+
+## ./node_modules/.bin/jest --verbose --runTestsByPath src/02-linked-list/__tests__/LinkedListNode.test.js
