@@ -1,4 +1,3 @@
-// Import dependencies.
 import { depthFirstSearch } from './depthFirstSearch';
 import { BinaryTreeNode } from '../06-binary-search-tree/BinaryTreeNode';
 

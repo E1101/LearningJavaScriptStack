@@ -19,11 +19,11 @@ export class MinHeap {
   }
 
   /**
-   * @param {*} item
+   * @param {*} value
    * @return {MinHeap}
    */
-  add(item) {
-    this.heapContainer.push(item);
+  add(value) {
+    this.heapContainer.push(value);
 
     // Make sure that the heap-property is preserved by moving the
     // element up in case if it smaller than its parent.

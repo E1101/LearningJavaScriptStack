@@ -1,4 +1,3 @@
-// Import dependencies.
 import LinkedList from '../02-linked-list/LinkedList';
 
 export default class GraphVertex {
@@ -27,7 +26,7 @@ export default class GraphVertex {
    * @param {GraphEdge} edge
    */
   deleteEdge(edge) {
-    this.edges.delete(edge);
+    this.edges.unset(value => value === edge);
   }
 
   /**
@@ -35,8 +34,6 @@ export default class GraphVertex {
    * @returns {GraphVertex[]}
    */
   getNeighbors() {
-    const edges = this.edges.toArray();
-
     /** @param {LinkedListNode} node */
     const neighborsConverter = (node) => {
       const edge = node.value;
@@ -51,7 +48,7 @@ export default class GraphVertex {
 
     // Return either start or end vertex.
     // For undirected graphs it is possible that current vertex will be the end one.
-    return edges.map(neighborsConverter);
+    return this.edges.toArray().map(neighborsConverter);
   }
 
   /**
