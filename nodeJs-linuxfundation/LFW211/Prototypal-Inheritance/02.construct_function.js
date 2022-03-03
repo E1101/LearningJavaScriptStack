@@ -3,7 +3,7 @@
 function inherit(proto) {
     // Using PascalCase for functions which intended to be called
     // with new() is convention and recommended.
-    function ChainLink() {};
+    function ChainLink() {}
     ChainLink.prototype = proto;
 
     return new ChainLink();

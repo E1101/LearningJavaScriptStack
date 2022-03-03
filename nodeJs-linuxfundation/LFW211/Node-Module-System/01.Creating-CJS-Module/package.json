@@ -1,0 +1,18 @@
+{
+  "name": "my-package",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "start": "node index.js",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "pino": "^7.8.0"
+  },
+  "devDependencies": {
+    "standard": "^16.0.4"
+  }
+}
