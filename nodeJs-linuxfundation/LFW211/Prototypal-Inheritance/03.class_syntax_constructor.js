@@ -1,26 +1,41 @@
-class Wolf {
+class Person {
     constructor(name) {
         this.name = name
     }
 
-    // Wolf.prototype.howl = function () { ...
-    howl() {
-        console.log(this.name + ': awoooooooo')
+    talk() {
+        if (null === this.name) {
+            console.log('ababa dd abababa')
+            return
+        }
+
+        this._sayName()
+    }
+
+    _sayName() {
+        console.log('Hello my name is ' + this.name)
     }
 }
 
-// `extends` ensure that prototype of Dog will be Wolf
-class Dog extends Wolf {
-    constructor(name) {
-        // equivalent of Wolf.call(this, name + ' the dog')
-        super(name + ' the dog')
+class Employee extends Person {
+    constructor(name, title) {
+        super(name);
+        this.title = title
     }
 
-    woof() {
-        console.log(this.name + ': woof')
+    _sayName() {
+        if (!this.title) {
+            super._sayName();
+            return;
+        }
+
+        console.log(`Hello my name is ${this.name} the ${this.title}`)
     }
 }
 
-const rufus = new Dog('Rufus');
-rufus.woof()
-rufus.howl()
+const pye = new Employee('Pye')
+pye.talk()
+
+console.log(Object.getPrototypeOf(pye) === Employee.prototype)
+console.log(Object.getPrototypeOf(Employee.prototype) === Person.prototype)
+console.log(Object.getPrototypeOf(Person.prototype) === Object.prototype)

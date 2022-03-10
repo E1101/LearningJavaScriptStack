@@ -30,19 +30,29 @@ const Employee = Object.create(Person, {
     }
 })
 
-const pye = Object.create(Employee, {
-    // In addition to `value`, `get` and `set` can be used
-    // to create a property getter/setter.
-    name: {
-        value: 'Pye'
-    },
-    title: {
-        value: 'Senior Software Engineer'
+function createEmployee(name, title) {
+    let empObj = {};
+    if (name !== undefined || name !== null) {
+        Object.assign(empObj, {
+            name: {
+                value: name
+            }
+        });
     }
-})
 
+    if (title !== undefined || title !== null) {
+        Object.assign(empObj, {
+            title: {
+                value: title
+            }
+        });
+    }
+
+    return Object.create(Employee, empObj)
+}
+
+const pye = createEmployee('Pye', 'Westwing developer')
 pye.talk()
 
-console.log(
-    Object.getOwnPropertyDescriptor(pye, 'title')
-)
+console.log(Object.getPrototypeOf(pye) === Employee) //true
+console.log(Object.getPrototypeOf(Employee) === Person) //true

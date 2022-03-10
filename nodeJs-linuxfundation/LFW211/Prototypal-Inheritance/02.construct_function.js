@@ -1,48 +1,50 @@
-// In EcmaScript5+ the Object.create() could be used
-// to the same effect.
-function inherit(proto) {
-    // Using PascalCase for functions which intended to be called
-    // with new() is convention and recommended.
-    function ChainLink() {}
-    ChainLink.prototype = proto;
-
-    return new ChainLink();
-}
-
-// Wolf Prototype
-// --------------------------
-function Wolf(name) {
-    this.name = name;
-}
-
-Wolf.prototype.howl = function() {
-    console.log(this.name + ': Awoooooo');
-}
-
-// Dog Prototype
-// --------------------------
+// There is variety of options to make object inheritance:
+//
+// const { inherit } = require('./util/inherit.ecma5.js')
+// const inherit = require('./util/inherit.function.js')
+const inherit = require('./util/inherit.node.js')
 
 // Using PascalCase for functions which intended to be called
 // with new() is convention and recommended.
-function Dog(name) {
+function Person(name) {
+    this.name = name;
+}
+
+Person.prototype._sayName = function() {
+    console.log('Hello my name is ' + this.name)
+}
+
+Person.prototype.talk = function() {
+    if (null === this.name) {
+        console.log('ababa dd abababa')
+        return
+    }
+
+    this._sayName()
+}
+
+function Employee(name, title) {
     // First argument is set this object reference inside Object,
-    // subsequent argements passed to call() become function arguements.
-    Wolf.call(this, name + ' the dog');
+    // subsequent arguments passed to call() become function arguments.
+    Person.call(this, name)
+
+    this.title = title
 }
 
-// Dog prototype is explicity assigned, overwritting
-// preexisting prototype.
-// now Dog.prototype has Wolf.prototype
-Dog.prototype = inherit(Wolf.prototype);
-Dog.prototype.woof = function() {
-    console.log(this.name + ' : Wooooooof');
+inherit(Employee, Person)
+Employee.prototype._sayName = function() {
+    if (!this.title) {
+        // duplicated code from Person object
+        console.log('Hello my name is ' + this.name)
+        return;
+    }
+
+    console.log(`Hello my name is ${this.name} the ${this.title}`)
 }
 
-// Run
-const rufus = new Dog('Rufus');
-rufus.woof();
-rufus.howl();
+const pye = new Employee('Pye', 'Westwing developer')
+pye.talk()
 
-console.log(Object.getPrototypeOf(rufus) === Dog.prototype)
-console.log(Object.getPrototypeOf(Dog.prototype) === Wolf.prototype)
-console.log(Object.getPrototypeOf(Wolf.prototype) === Object.prototype)
+console.log(Object.getPrototypeOf(pye) === Employee.prototype)
+console.log(Object.getPrototypeOf(Employee.prototype) === Person.prototype)
+console.log(Object.getPrototypeOf(Person.prototype) === Object.prototype)
