@@ -33,9 +33,8 @@ function Employee(name, title) {
 
 inherit(Employee, Person)
 Employee.prototype._sayName = function() {
-    if (!this.title) {
-        // duplicated code from Person object
-        console.log('Hello my name is ' + this.name)
+    if (! this.title) {
+        Person._sayName.call(this)
         return;
     }
 

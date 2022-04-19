@@ -4,9 +4,7 @@ import { setTimeout } from 'timers/promises'
 const ac = new AbortController()
 // `AbortController` instance has an `AbortSignal` instance on it's `signal` property.
 // Many part of Node system accept `signal` option, include fs, net, http, events, stream, ...
-const { signal } = ac
-
-const timeout = setTimeout(1000, 'will NOT be logged', { signal })
+const timeout = setTimeout(1000, 'will NOT be logged', { signal: ac.signal })
 
 // Nothing is logged out because the timer is canceled
 // before it can complete.

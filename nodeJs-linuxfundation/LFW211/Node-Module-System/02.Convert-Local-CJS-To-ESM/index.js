@@ -1,6 +1,6 @@
 'use strict'
 
-if (require.name === 'module') {
+if (require.name === 'require') {
   // When It's executed with node
   //
   const pino = require('pino')
@@ -24,3 +24,6 @@ if (require.name === 'module') {
 
   module.exports = reverseAndUpper
 }
+
+// $ echo "const strMeth = require('./index.js'); strMeth('this is message').then(r => { console.log(r) });" | node
+// $ echo "const strMeth = import('./index.js').then(({default: strMeth}) => strMeth('this is message').then(r => { console.log(r) }))" | node

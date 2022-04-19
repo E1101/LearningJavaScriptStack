@@ -6,3 +6,7 @@ export const upper = (str) => {
     str += ''
     return str.toUpperCase();
 }
+
+export default {
+    upper
+}

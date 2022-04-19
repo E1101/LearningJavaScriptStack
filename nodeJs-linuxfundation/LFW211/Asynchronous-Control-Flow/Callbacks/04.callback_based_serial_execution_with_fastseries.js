@@ -7,10 +7,12 @@ const print = (err, data) => {
     console.error(err)
     return
   }
+
   console.log(Buffer.concat(data).toString())
 }
 
 const files = Array.from(Array(3)).fill(__filename)
+
 // here the array of files is mapped into an [array of functions] that
 // `fastseries` can consume.
 const readers = files.map((file) => {

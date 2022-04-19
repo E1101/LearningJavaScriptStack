@@ -1,4 +1,5 @@
 'use strict'
+
 const { Transform } = require('stream')
 const { scrypt } = require('crypto')
 

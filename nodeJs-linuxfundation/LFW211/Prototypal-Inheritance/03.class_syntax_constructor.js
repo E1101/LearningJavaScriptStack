@@ -24,7 +24,7 @@ class Employee extends Person {
     }
 
     _sayName() {
-        if (!this.title) {
+        if (! this.title) {
             super._sayName();
             return;
         }

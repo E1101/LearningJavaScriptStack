@@ -2,15 +2,21 @@ function wolf (name) {
     const howl = () => {
         console.log(name + ': awoooooooo')
     }
-    return { howl: howl }
+
+    return {
+        howl
+    }
 }
 
 function dog (name) {
     name = name + ' the dog'
-    const woof = () => { console.log(name + ': woof') }
+    const woof = () => {
+        console.log(name + ': woof')
+    }
+
     return {
         ...wolf(name),
-        woof: woof
+        woof
     }
 }
 

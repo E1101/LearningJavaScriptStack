@@ -7,7 +7,10 @@ class MyEmitter extends EventEmitter {
   }
 
   destroy (err) {
-    if (err) { this.emit('error', err) }
+    if (err) {
+      this.emit('error', err)
+    }
+
     this.emit('close')
   }
 }

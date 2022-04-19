@@ -1,4 +1,5 @@
 'use strict'
+
 const { createGzip } = require('zlib')
 
 const transform = createGzip()

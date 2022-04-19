@@ -6,5 +6,5 @@ function inherit(object, inheritFrom) {
 }
 
 module.exports = {
-    inherit: inherit
+    inherit
 }

@@ -2,6 +2,7 @@ import { once, EventEmitter } from 'events'
 import { setTimeout } from 'timers/promises'
 
 const sometimesLaggy = new EventEmitter()
+
 const ac = new AbortController()
 const { signal } = ac
 

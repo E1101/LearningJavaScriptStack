@@ -25,9 +25,9 @@ doTask(3)
     console.log('result', result)
   })
   .catch((err) => {
-    if (err.code === 'ERR_AMOUNT_MUST_BE_NUMBER') {
+    if (err instanceof TypeError) {
       console.error('wrong type')
-    } else if (err.code === 'ERRO_AMOUNT_MUST_EXCEED_ZERO') {
+    } else if (err instanceof RangeError) {
       console.error('out of range')
     } else if (err.code === 'ERR_MUST_BE_EVEN') {
       console.error('cannot be odd')

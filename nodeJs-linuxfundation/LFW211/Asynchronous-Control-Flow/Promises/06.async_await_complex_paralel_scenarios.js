@@ -1,7 +1,8 @@
-const { promisify } = require('util')
 const { readFile } = require('fs')
+const { promisify } = require('util')
 
 const [ bigFile, mediumFile, smallFile ] = Array.from(Array(3)).fill(__filename)
+
 // return a promise which resolve when all three parallel operation are done
 const read = promisify((cb) => {
   let index = 0

@@ -1,4 +1,5 @@
 'use strict'
+
 const { join } = require('path')
 
 console.log('current filename', __filename)

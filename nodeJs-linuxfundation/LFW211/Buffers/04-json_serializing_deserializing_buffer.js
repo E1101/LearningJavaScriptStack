@@ -1,8 +1,20 @@
-const buffer = Buffer.from('👀')
-const json = buffer.toJSON()
-// JSON.stringify will call buffer.toJSON() and the result is equivalent
-const json = JSON.stringify(buffer)
+let buffer = Buffer.from('👀')
 
-const parsed = JSON.parse(json)
-console.log(parsed) // prints { type: 'Buffer', data: [ 240, 159, 145, 128 ] }
-console.log(Buffer.from(parsed.data)) // prints <Buffer f0 9f 91 80>
+console.group('Json')
+console.log(buffer.toJSON())
+console.log(
+    // JSON.stringify will call buffer.toJSON() and the result is equivalent
+    JSON.parse(JSON.stringify(buffer))
+)
+
+console.log(
+    Buffer.from(buffer.toJSON().data)
+)
+console.log(
+    Buffer.from(buffer.toJSON())
+)
+
+
+const buf = Buffer.from(JSON.stringify(buffer))
+console.log(buf)
+console.log(buf.toString())

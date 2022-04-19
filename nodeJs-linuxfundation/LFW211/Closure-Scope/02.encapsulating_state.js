@@ -1,4 +1,4 @@
-function createSigner (secret) {
+function createSigner(secret) {
     const keypair = createKeypair(secret)
     return function (content) {
         return {

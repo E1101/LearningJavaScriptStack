@@ -1,4 +1,5 @@
 'use strict'
+
 const net = require('net')
 
 // return a Duplex stream
@@ -14,5 +15,5 @@ setTimeout(() => {
   socket.write('all done')
   setTimeout(() => {
     socket.end()
-  }, 250)
+  }, 1250)
 }, 3250)

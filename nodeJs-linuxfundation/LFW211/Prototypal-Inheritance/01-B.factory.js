@@ -1,6 +1,6 @@
 const Person = {
     name: null,
-    talk: function() {
+    talk: () => {
         if (null === this.name) {
             console.log('ababa dd abababa')
             return
@@ -8,7 +8,7 @@ const Person = {
 
         this._sayName()
     },
-    _sayName: function() {
+    _sayName: () => {
         console.log('Hello my name is ' + this.name)
     }
 }
@@ -18,10 +18,9 @@ const Employee = Object.create(Person, {
         value: null,
     },
     _sayName: {
-        value: function() {
-            if (!this.title) {
-                // duplicated code from Person object
-                console.log('Hello my name is ' + this.name)
+        value: () => {
+            if (! this.title) {
+                Person._sayName.call(this)
                 return;
             }
 
@@ -32,7 +31,7 @@ const Employee = Object.create(Person, {
 
 function createEmployee(name, title) {
     let empObj = {};
-    if (name !== undefined || name !== null) {
+    if (name !== undefined) {
         Object.assign(empObj, {
             name: {
                 value: name
@@ -40,7 +39,7 @@ function createEmployee(name, title) {
         });
     }
 
-    if (title !== undefined || title !== null) {
+    if (title !== undefined) {
         Object.assign(empObj, {
             title: {
                 value: title

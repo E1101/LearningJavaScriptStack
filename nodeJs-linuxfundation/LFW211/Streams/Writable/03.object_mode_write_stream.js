@@ -1,4 +1,5 @@
 'use strict'
+
 const { Writable } = require('stream')
 
 const createWriteStream = (data) => {
@@ -16,6 +17,7 @@ const createWriteStream = (data) => {
 
 const data = []
 const writable = createWriteStream(data)
+
 writable.on('finish', () => { console.log('finished writing', data) })
 writable.write('A\n')
 writable.write(1) // <=====-----
