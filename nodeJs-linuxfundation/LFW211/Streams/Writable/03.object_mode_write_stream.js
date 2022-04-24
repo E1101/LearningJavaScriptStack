@@ -22,3 +22,5 @@ writable.on('finish', () => { console.log('finished writing', data) })
 writable.write('A\n')
 writable.write(1) // <=====-----
 writable.end('nothing more to write')
+
+// finished writing [ 'A\n', 1, 'nothing more to write' ]

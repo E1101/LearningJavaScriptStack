@@ -8,7 +8,8 @@ socket.pipe(process.stdout)
 socket.write('hello')
 
 setTimeout(() => {
-  socket.write('all done')
+  socket.write('ping')    // pingfinish will be received by server
+  socket.write('finish')
   setTimeout(() => {
     socket.end()
   }, 1250)

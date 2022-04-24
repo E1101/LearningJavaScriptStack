@@ -2,8 +2,7 @@
 
 const { Readable } = require('stream')
 
-const createReadStream = () => {
-  const data = ['some', 'data', 'to', 'read']
+const createReadStream = (data) => {
   return new Readable({
     // the `read` function is called any time Node internals request
     // more data from readableStream.
@@ -17,7 +16,7 @@ const createReadStream = () => {
   })
 }
 
-const readable = createReadStream()
+const readable = createReadStream(['some', 'data', 'to', 'read'])
 readable.on('data', (data) => { console.log('got data', data) })
 readable.on('end', () => { console.log('finished reading') })
 

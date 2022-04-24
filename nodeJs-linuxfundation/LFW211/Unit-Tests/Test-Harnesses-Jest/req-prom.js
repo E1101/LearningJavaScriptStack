@@ -1,4 +1,5 @@
 'use strict'
+
 const { promisify } = require('util')
 const timeout = promisify(setTimeout)
 

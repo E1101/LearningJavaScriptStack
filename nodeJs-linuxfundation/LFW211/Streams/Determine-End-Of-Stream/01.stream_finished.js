@@ -20,6 +20,7 @@ net.createServer((socket) => {
       console.error('there was a socket error', err)
     }
 
+    console.log()
     clearInterval(interval)
   })
 }).listen(3000)

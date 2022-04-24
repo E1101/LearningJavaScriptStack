@@ -5,7 +5,7 @@ const { createGzip } = require('zlib')
 const transform = createGzip()
 
 transform.on('data', (data) => {
-  console.log('got gzip data', data.toString('base64'))
+  console.log('got gzip data', data)
 })
 
 transform.write('first')

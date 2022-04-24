@@ -1,7 +1,8 @@
 const assert = require('assert')
-const add = require('./get-add-from-somewhere.js')
 
+const add = require('./get-add-from-somewhere.js')
 const result = add(2, 2)
+
 assert.equal(typeof result, 'number')
 assert.equal(result, 4)
 // or
