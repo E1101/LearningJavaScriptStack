@@ -6,7 +6,7 @@ const createWriteStream = (data) => {
   return new Writable({
     // by default it's not possible to write any other type other
     // than string with `objectMode` set to true it wont crash by writing int
-    // in this example.
+    // in this hello.
     objectMode: true, // <===----
     write (chunk, enc, next) {
       data.push(chunk)
