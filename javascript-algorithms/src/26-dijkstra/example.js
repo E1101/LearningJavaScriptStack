@@ -1,4 +1,3 @@
-// Import dependencies.
 import GraphVertex from '../08-graph/GraphVertex';
 import GraphEdge from '../08-graph/GraphEdge';
 import Graph from '../08-graph/Graph';

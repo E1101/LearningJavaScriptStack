@@ -15,3 +15,6 @@ export function factorial(number) {
 
   return factorial(number - 1) * number;
 }
+
+// Time Complexity: O(number)
+// Space Complexity: O(number)

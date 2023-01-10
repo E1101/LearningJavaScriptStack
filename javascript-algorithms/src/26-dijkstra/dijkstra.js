@@ -1,4 +1,3 @@
-// Import dependencies.
 import { PriorityQueue } from '../07-priority-queue/PriorityQueue';
 
 /**
@@ -40,28 +39,30 @@ export default function dijkstra(graph, startVertex) {
 
     // Iterate over every unvisited neighbor of the current vertex.
     currentVertex.getNeighbors().forEach((neighbor) => {
-      if (!visitedVertices[neighbor.getKey()]) {
-        const edgeWight = neighbor.edge.weight;
-        const existingDistanceToNeighbor = distances[neighbor.getKey()];
-        const distanceToNeighborFromCurrent = distances[currentVertex.getKey()] + edgeWight;
+      if (visitedVertices[neighbor.getKey()]) {
+        return;
+      }
 
-        // If we've found shorter path to the neighbor - update it.
-        if (distanceToNeighborFromCurrent < existingDistanceToNeighbor) {
-          distances[neighbor.getKey()] = distanceToNeighborFromCurrent;
+      const edgeWight = neighbor.edge.weight;
+      const distanceToNeighborFromCurrent = distances[currentVertex.getKey()] + edgeWight;
+      const existingDistanceToNeighbor = distances[neighbor.getKey()];
 
-          // Change priority of the neighbor in a queue since it might have became closer.
-          if (queue.has(neighbor)) {
-            queue.changePriority(neighbor, distances[neighbor.getKey()]);
-          }
+      // If we've found shorter path to the neighbor - update it.
+      if (distanceToNeighborFromCurrent < existingDistanceToNeighbor) {
+        distances[neighbor.getKey()] = distanceToNeighborFromCurrent;
 
-          // Remember previous closest vertex.
-          previousVertices[neighbor.getKey()] = currentVertex;
+        // Change priority of the neighbor in a queue since it might have became closer.
+        if (queue.has(neighbor)) {
+          queue.changePriority(neighbor, distances[neighbor.getKey()]);
         }
 
-        // Add neighbor to the queue for further visiting.
-        if (!queue.has(neighbor)) {
-          queue.add(neighbor, distances[neighbor.getKey()]);
-        }
+        // Remember previous closest vertex.
+        previousVertices[neighbor.getKey()] = currentVertex;
+      }
+
+      // Add neighbor to the queue for further visiting.
+      if (!queue.has(neighbor)) {
+        queue.add(neighbor, distances[neighbor.getKey()]);
       }
     });
 
@@ -69,6 +70,6 @@ export default function dijkstra(graph, startVertex) {
     visitedVertices[currentVertex.getKey()] = true;
   }
 
-  // Return the set of shortest distances and paths to all vertices.
+  // Return the set of the shortest distances and paths to all vertices.
   return { distances, previousVertices };
 }

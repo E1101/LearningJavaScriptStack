@@ -24,21 +24,21 @@ var Timer = createReactClass({
     return { seconds: this.props.minutes * 60 };
   },
 
-  countDown: function() {
-    var onFinish = this.props.onFinish;
-    this.setState(function(prevState) {
-      var secondsLeft = prevState.seconds - 1;
-
-      if (secondsLeft < 1) return onFinish();
-
-      return { seconds: secondsLeft };
-    });
-  },
-
   interval: null,
   componentDidMount: function() {
     this.interval = setInterval(this.countDown, 1000);
   },
+
+  countDown: function() {
+    var onFinish = this.props.onFinish;
+
+    this.setState(function(prevState) {
+      var secondsLeft = prevState.seconds - 1;
+      if (secondsLeft < 1) return onFinish();
+      return { seconds: secondsLeft };
+    });
+  },
+
   componentWillUnmount: function() {
     clearInterval(this.interval);
   },

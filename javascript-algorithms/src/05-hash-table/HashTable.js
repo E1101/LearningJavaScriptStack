@@ -19,7 +19,7 @@ export class HashTable {
    * @param {*} value
    */
   set(key, value) {
-    const bucketLinkedList = this.getBucketForKey(key);
+    const bucketLinkedList = this.ensureBucketForKey(key);
     // Perform 'find by key' operation in linked list.
     const node = bucketLinkedList.find({
       callback: listNode => listNode.key === key,
@@ -30,7 +30,7 @@ export class HashTable {
       bucketLinkedList.append({ key, value });
     } else {
       // Update value of existing linked list node.
-      node.value.value = value;
+      node.value.value = Object.assign({}, node.value, { value });
     }
   }
 
@@ -41,7 +41,7 @@ export class HashTable {
    * @return {*}
    */
   get(key) {
-    const bucketLinkedList = this.getBucketForKey(key);
+    const bucketLinkedList = this.ensureBucketForKey(key);
     // Perform 'find by key' operation in linked list.
     const node = bucketLinkedList.find({
       callback: listNode => listNode.key === key,
@@ -58,7 +58,7 @@ export class HashTable {
    * @return {boolean}
    */
   delete(key) {
-    const bucketLinkedList = this.getBucketForKey(key);
+    const bucketLinkedList = this.ensureBucketForKey(key);
     // Perform 'find by key' operation in linked list.
     const node = bucketLinkedList.find({
       callback: listNode => listNode.key === key,
@@ -78,7 +78,7 @@ export class HashTable {
    * @param {string} key
    * @return {LinkedList}
    */
-  getBucketForKey(key) {
+  ensureBucketForKey(key) {
     const index = hash(key, this.buckets.length);
     if (this.buckets[index] === null) {
       this.buckets[index] = new LinkedList();

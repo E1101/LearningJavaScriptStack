@@ -19,3 +19,5 @@ export function iterativePower(number, power) {
 
   return result;
 }
+
+// O(n) example

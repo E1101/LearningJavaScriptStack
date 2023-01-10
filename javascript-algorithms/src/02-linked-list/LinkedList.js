@@ -12,6 +12,7 @@ class LinkedList {
   */
   prepend(value) {
     this.head = new LinkedListNode(value, this.head);
+
     if (!this.tail) {
       this.tail = this.head;
     }
@@ -38,7 +39,7 @@ class LinkedList {
   }
 
   isEmpty() {
-    return this.head === null && this.tail === null;
+    return this.head === null;
   }
 
   /**
@@ -46,8 +47,6 @@ class LinkedList {
   * @return {LinkedListNode}
   */
   unset(callback) {
-    if (this.isEmpty()) return null;
-
     let previousNode;
     let currentNode = this.head;
     while (currentNode) {
@@ -74,12 +73,29 @@ class LinkedList {
   }
 
   /**
+   * @return {LinkedListNode}
+   */
+  pop() {
+    if (this.isEmpty()) return null;
+
+    const currentHead = this.head;
+    this.head = currentHead.next;
+
+    if (!this.head) {
+      this.tail = null;
+    }
+
+    return currentHead;
+  }
+
+  /**
   * @return {LinkedListNode}
   */
   unshift() {
     if (this.isEmpty()) return null;
 
     const currentTail = this.tail;
+
     // There is only one node in linked list.
     if (this.head === this.tail) {
       this.head = null;
@@ -102,27 +118,12 @@ class LinkedList {
   }
 
   /**
-  * @return {LinkedListNode}
-  */
-  pop() {
-    if (this.isEmpty()) return null;
-
-    const currentHead = this.head;
-    this.head = currentHead.next;
-    if (!this.head) this.tail = null;
-
-    return currentHead;
-  }
-
-  /**
   * @param {Object} findParams
   * @param {*} findParams.value
   * @param {function} [findParams.callback]
   * @return {LinkedListNode}
   */
   find({ value = undefined, callback = undefined }) {
-    if (this.isEmpty()) return null;
-
     let currentNode = this.head;
     while (currentNode) {
       if (value !== undefined && value === currentNode.value) {

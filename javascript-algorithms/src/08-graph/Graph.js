@@ -38,19 +38,15 @@ export default class Graph {
   }
 
   /**
-   * Get the list of all graph edges.
-   * @return {GraphEdge[]}
-   */
-  getAllEdges() {
-    return Object.values(this.edges);
-  }
-
-  /**
    * Add new edge to the graph.
    * @param {GraphEdge} edge
    * @returns {Graph}
    */
   addEdge(edge) {
+    if (this.edges[edge.getKey()]) {
+      throw new Error('Edge has already been added before');
+    }
+
     // Try to find and end start vertices.
     let startVertex = this.getVertexByKey(edge.startVertex.getKey());
     let endVertex = this.getVertexByKey(edge.endVertex.getKey());
@@ -67,13 +63,6 @@ export default class Graph {
       endVertex = this.getVertexByKey(edge.endVertex.getKey());
     }
 
-    // Check if edge has been already added.
-    if (this.edges[edge.getKey()]) {
-      throw new Error('Edge has already been added before');
-    } else {
-      this.edges[edge.getKey()] = edge;
-    }
-
     // Add edge to the vertices.
     if (this.isDirected) {
       // If graph IS directed then add the edge only to start vertex.
@@ -83,6 +72,8 @@ export default class Graph {
       startVertex.addEdge(edge);
       endVertex.addEdge(edge);
     }
+
+    this.edges[edge.getKey()] = edge;
 
     return this;
   }
@@ -121,6 +112,14 @@ export default class Graph {
     }
 
     return vertex.findEdge(endVertex);
+  }
+
+  /**
+   * Get the list of all graph edges.
+   * @return {GraphEdge[]}
+   */
+  getAllEdges() {
+    return Object.values(this.edges);
   }
 
   /**

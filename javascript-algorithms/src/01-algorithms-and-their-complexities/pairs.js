@@ -19,3 +19,7 @@ export function pairs(letters) {
 
   return result;
 }
+
+// Time Complexity: O(letters.length^2)
+// Space Complexity: O(letters.length^2)
+

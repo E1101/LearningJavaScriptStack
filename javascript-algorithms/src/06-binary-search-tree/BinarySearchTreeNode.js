@@ -46,14 +46,14 @@ export default class BinarySearchTreeNode {
    * @return {BinarySearchTreeNode}
    */
   setLeft(node) {
+    if (this.value < node.value) {
+      throw new Error('Left node should have a value less than of parent node');
+    }
+
     // Reset parent for left node since
     // it is going to be detached.
     if (this.left) {
       this.left.detach();
-    }
-
-    if (this.value < node.value) {
-      throw new Error('Left node should have a value less than of parent node');
     }
 
     node.parent = this;
@@ -67,14 +67,14 @@ export default class BinarySearchTreeNode {
    * @return {BinarySearchTreeNode}
    */
   setRight(node) {
+    if (this.value > node.value) {
+      throw new Error('Right node should have a value more than of parent node');
+    }
+
     // Reset parent for right node since
     // it is going to be detached.
     if (this.right) {
       this.right.detach();
-    }
-
-    if (this.value > node.value) {
-      throw new Error('Right node should have a value more than of parent node');
     }
 
     node.parent = this;
@@ -199,6 +199,8 @@ export default class BinarySearchTreeNode {
     // Node to be removed has two children.
     //
     if (nodeToRemove.left && nodeToRemove.right) {
+      // search for min node in right because it's still higher than all
+      // nodes to the left to be replaced with deleted node
       const closestNodeToRemovedOne = nodeToRemove.right.findMin();
       if (closestNodeToRemovedOne !== nodeToRemove.right) {
         nodeToRemove.value = closestNodeToRemovedOne.value;
@@ -261,10 +263,6 @@ export default class BinarySearchTreeNode {
    * @return {boolean}
    */
   replaceChild(nodeToReplace, replacementNode) {
-    if (!nodeToReplace || !replacementNode) {
-      return false;
-    }
-
     replacementNode.parent = this;
 
     if (this.left && this.left === nodeToReplace) {
